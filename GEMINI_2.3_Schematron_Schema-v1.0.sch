@@ -1218,7 +1218,7 @@
     <sch:title>Non-empty free text content</sch:title>
     <sch:p>Don't allow empty Free text gco:CharacterString or gmx:Anchor</sch:p>
     <sch:rule context="//gco:CharacterString | //gmx:Anchor">
-      <sch:assert test="normalize-space(.)"> AT-6: Free text elements should not be empty
+      <sch:assert test="normalize-space(.) or string(../@gco:nilReason)"> AT-6: Free text elements should not be empty
       </sch:assert>
     </sch:rule>
   </sch:pattern>
