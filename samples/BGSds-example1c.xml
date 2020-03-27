@@ -884,15 +884,4 @@
          </gmd:lineage>
       </gmd:DQ_DataQuality>
    </gmd:dataQualityInfo>
-   <gmd:dataQualityInfo>
-      <gmd:DQ_DataQuality>
-         <gmd:scope>
-            <gmd:DQ_Scope>
-               <gmd:level>
-                  <gmd:MD_ScopeCode codeList="gmxCodelists.xml#MD_ScopeCode" codeListValue="attribute">some attribute</gmd:MD_ScopeCode>
-               </gmd:level>
-            </gmd:DQ_Scope>
-         </gmd:scope>
-      </gmd:DQ_DataQuality>
-   </gmd:dataQualityInfo>
 </gmd:MD_Metadata>
