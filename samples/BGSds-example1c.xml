@@ -169,14 +169,11 @@
                   </gmd:MD_Identifier>
                </gmd:identifier>
                <gmd:identifier>
-                  <gmd:RS_Identifier>
+                  <gmd:MD_Identifier>
                      <gmd:code>
-                        <gco:CharacterString>10.5285/1e7d5e08-9e24-471b-ae37-49b477f695e3</gco:CharacterString>
+                        <gmx:Anchor xlink:href="https://www.bgs.ac.uk/services/ngdc/citedData/catalogue/1e7d5e08-9e24-471b-ae37-49b477f695e3.html" xlink:title="Digital Object Identifier (DOI) Landing Page">10.5285/1e7d5e08-9e24-471b-ae37-49b477f695e3</gmx:Anchor>
                      </gmd:code>
-                     <gmd:codeSpace>
-                        <gmx:Anchor xlink:href="https://www.doi.org/" xlink:title="Digital Object Identifier (DOI)">doi</gmx:Anchor>
-                     </gmd:codeSpace>
-                  </gmd:RS_Identifier>
+                  </gmd:MD_Identifier>
                </gmd:identifier>
             </gmd:CI_Citation>
          </gmd:citation>
