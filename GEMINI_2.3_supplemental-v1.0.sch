@@ -31,12 +31,12 @@
         <!-- The gmd:name, gmd:description, and gmd:function/gmd:CI_OnLineFunctionCode child elements of gmd:CI_OnlineResource element containing the given gmd:linkage element should also be provided -->
         <sch:rule
             context="//gmd:MD_Metadata[1]/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource">
-            <sch:assert test="gmd:name">SP-1a: If possible a gmd:name should be supplied to provide more
-                information about the URL link </sch:assert>
-            <sch:assert test="gmd:description">SP-1b: If possible a gmd:description should be supplied to
-                provide more information about the URL link </sch:assert>
-            <sch:assert test="gmd:function">SP-1c: If possible a gmd:function should be supplied to
-                provide more information about the URL link </sch:assert>
+            <sch:report test="count(gmd:name) = 0">SP-1a: If possible a gmd:name should be supplied to provide more
+                information about the URL link </sch:report>
+            <sch:report test="count(gmd:description) = 0">SP-1b: If possible a gmd:description should be supplied to
+                provide more information about the URL link </sch:report>
+            <sch:report test="count(gmd:function) = 0">SP-1c: If possible a gmd:function should be supplied to
+                provide more information about the URL link </sch:report>
         </sch:rule>
     </sch:pattern>
     <!-- fpi="metadata/2.0/req/isdss/topological-consistency-descriptive-results-warn" has been removed. This was SP-2 -->
@@ -55,17 +55,17 @@
         <sch:p>Checking whether coordinate reference system is a default CRS</sch:p>
         <sch:rule
             context="//gmd:MD_Metadata[1]/gmd:referenceSystemInfo/*[1]/gmd:referenceSystemIdentifier/gmd:RS_Identifier[1]/gmd:code/gmx:Anchor[1]/@xlink:href">
-            <sch:assert
-                test="$defaultCRScodes//crs/text()[normalize-space(.) = normalize-space(current()/.)]"
+            <sch:report
+                test="$defaultCRScodes//crs/text()[normalize-space(.) != normalize-space(current()/.)]"
                 >SP-4a: Coordinate Reference System: <sch:value-of
-                    select="normalize-space(current()/.)"/> is not a default CRS </sch:assert>
+                    select="normalize-space(current()/.)"/> is not a default CRS </sch:report>
         </sch:rule>
         <sch:rule
             context="//gmd:MD_Metadata[1]/gmd:referenceSystemInfo/*[1]/gmd:referenceSystemIdentifier/gmd:RS_Identifier[1]/gmd:code/gco:CharacterString">
-            <sch:assert
-                test="$defaultCRScodes//crs/text()[normalize-space(.) = normalize-space(current()/.)]"
+            <sch:report
+                test="$defaultCRScodes//crs/text()[normalize-space(.) != normalize-space(current()/.)]"
                 >SP-4b: Coordinate Reference System: <sch:value-of
-                    select="normalize-space(current()/.)"/> is not a default CRS </sch:assert>
+                    select="normalize-space(current()/.)"/> is not a default CRS </sch:report>
         </sch:rule>
     </sch:pattern>
     <sch:pattern fpi="Gemini2-mi41-inspire1089x-WARN">
