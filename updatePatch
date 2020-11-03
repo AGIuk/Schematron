@@ -1,0 +1,58 @@
+--- /home/hodor/src/repos/GEMINI/Schematron/GEMINI_2.3_Schematron_Schema-v1.0.sch
++++ /home/hodor/src/repos/GEMINI/Schematron/.git/.gitk-tmp.1Jhcw7/1/[e1e36b6e023c6fd0f09f264251327b0c29c936e1] GEMINI_2.3_Schematron_Schema.sch
+@@ -73,6 +73,8 @@
+                 ~ moved sch:lets for debug reporting to top, for compliance to RELAX NG schema for Schematron
+     2018-07-03  ~ Release Candidate 9
+                 ~ updated reference XML files to location on https://agi.org.uk/ 
++    2020-11-02  ~ Added rule to cover INSPIRE TG 1.5
++                ~ First pass at changing Limitations on Public Access validation
+ -->
+ <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt" schemaVersion="1.2">
+   <sch:title>UK GEMINI Standard Draft Version 2.3</sch:title>
+@@ -480,6 +482,7 @@
+   </sch:pattern>
+   <!-- ========================================================================================== -->
+   <!-- Metadata Item 18 - Spatial Resolution                                                      -->
++  <!-- Now inc. metadata/2.0/req/datasets-and-series/spatial-resolution                           -->
+   <!-- ========================================================================================== -->
+   <sch:pattern fpi="Gemini2-mi18">
+     <sch:title>Spatial Resolution</sch:title>
+@@ -488,6 +491,20 @@
+     <sch:param name="context"
+       value="//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/*[1]/gmd:spatialResolution/*[1]/gmd:distance"
+     />
++  </sch:pattern>
++  <!-- New test in development -->
++  <sch:pattern fpi="Gemini2-mi18-resolution-and-scale">
++    <sch:title>Spatial Resolution resolution-and-scale</sch:title>
++    <sch:p>We need to test as per INSPIRE TG Requirement 1.5 that for a dataset or dataset series that we have EITHER equivalent scale or a resolution distance WHERE they are described, but NEVER both.</sch:p>
++    <sch:let name="srES" value="count(//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/*[1]/gmd:spatialResolution/*[1]/gmd:distance/gco:Distance)"/>
++    <sch:let name="srRD" value="count(//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/*[1]/gmd:spatialResolution/*[1]/gmd:equivalentScale/gmd:MD_RepresentativeFraction/gmd:denominator/gco:Integer)"/>
++    <sch:rule context="//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/gmd:MD_DataIdentification">
++      <sch:report
++        test="($hierarchyLevelCLValue = 'dataset' or $hierarchyLevelCLValue = 'series') and ($srES &gt; 0 and $srES &gt; 0)"
++        > MI-18a (Spatial Resolution): Spatial resolution for data set or data set series shall be given using either equivalent scale or a resolution distance, provided that these have been specified for the described data sets. If both ways have been specified, only one of the ways shall be used.
++        We have equivalent scale <sch:value-of select="$srES"/> and resolution distance <sch:value-of select="$srES"/>
++      </sch:report>
++    </sch:rule>
+   </sch:pattern>
+   <!-- ========================================================================================== -->
+   <!-- Metadata Item 19 - Resource Locator                                                        -->
+@@ -607,10 +624,14 @@
+     <sch:let name="LoPAurl" value="'http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/'"/>
+     <sch:let name="LoPAurlNum" value="count(//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/*[1]/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints/gmx:Anchor/@xlink:href[contains(.,$LoPAurl)])"/>
+     <sch:rule context="//gmd:MD_Metadata[1]/gmd:identificationInfo[1]/*[1]">
+-      <sch:report test="$LoPAurlNum != 1">
++      <!--<sch:report test="$LoPAurlNum != 1">
+         MI-25c (Limitations on Public Access): There must be one (and only one) LimitationsOnPublicAccess code list value specified using a gmx:Anchor in gmd:otherConstraints.
+         We have <sch:value-of select="$LoPAurlNum"/>
+-      </sch:report>
++      </sch:report>-->
++      <sch:assert test="$LoPAurlNum &gt;= 1">
++        MI-25cc (Limitations on Public Access): There must be at least one LimitationsOnPublicAccess code list value specified using a gmx:Anchor in gmd:otherConstraints.
++        We have <sch:value-of select="$LoPAurlNum"/>
++      </sch:assert>
+     </sch:rule>
+   </sch:pattern>
+   <sch:pattern is-a="TypeNillablePattern" id="Gemini2-mi25-OtherConstraints-Nillable">
+
