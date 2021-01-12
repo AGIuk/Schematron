@@ -1,4 +1,4 @@
-# Open Government Licence for public sector information
+# [Open Government Licence for public sector information v3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
 
 You are encouraged to use and re-use the Information that is available under this licence freely and flexibly, with only a few conditions.
 
