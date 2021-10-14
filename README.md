@@ -1,3 +1,5 @@
+Moved to https://github.com/agiorguk/gemini-schematron
+
 # Schematron
 The Schematron files in this repository are to support GEMINI 2.3 validation.
 
